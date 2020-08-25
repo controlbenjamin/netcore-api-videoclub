@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using VideoClubWebApi.Models;
 
-namespace VideoClubWebApi.Controllers.V1
+namespace VideoClubWebApi.Controllers.V2
 {
-    [Route("api/v1/[controller]")]
+    [Route("api/v2/[controller]")]
     [ApiController]
     public class ClientesController : ControllerBase
     {
@@ -22,25 +22,9 @@ namespace VideoClubWebApi.Controllers.V1
 
         // GET: api/Clientes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Cliente>>> GetClientes(int numeroDePagina = 1, int nroRegistrosPorPagina = 10)
+        public async Task<ActionResult<IEnumerable<Cliente>>> GetClientes()
         {
-            var query = _context.Clientes.AsQueryable();
-
-            var totalDeRegistros = query.Count();
-
-            int intSkip = nroRegistrosPorPagina * (numeroDePagina - 1);
-
-            var clientes = await query
-                .Skip(intSkip)
-                .Take(nroRegistrosPorPagina)
-                .ToListAsync();
-
-            Response.Headers["X-Total-Registros"] = totalDeRegistros.ToString();
-            Response.Headers["X-Cantidad-Paginas"] =
-                ((int)Math.Ceiling((double)totalDeRegistros / nroRegistrosPorPagina)).ToString();
-
-
-            return clientes;
+            return await _context.Clientes.ToListAsync();
         }
 
         // GET: api/Clientes/5
@@ -101,11 +85,6 @@ namespace VideoClubWebApi.Controllers.V1
             return CreatedAtAction("GetCliente", new { id = cliente.Id }, cliente);
         }
 
-        /// <summary>
-        /// Borra un cliente específico
-        /// </summary>
-        /// <param name="id">Id del cliente</param>
-        /// <returns></returns>
         // DELETE: api/Clientes/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Cliente>> DeleteCliente(int id)
