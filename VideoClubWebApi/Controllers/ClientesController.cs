@@ -85,6 +85,12 @@ namespace VideoClubWebApi.Controllers
             return CreatedAtAction("GetCliente", new { id = cliente.Id }, cliente);
         }
 
+        /// <summary>
+        /// Borra un cliente específico
+        /// </summary>
+        /// <param name="id">Id del cliente</param>
+        /// <returns></returns>
+
         // DELETE: api/Clientes/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Cliente>> DeleteCliente(int id)

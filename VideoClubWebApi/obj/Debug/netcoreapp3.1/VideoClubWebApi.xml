@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VideoClubWebApi</name>
+    </assembly>
+    <members>
+        <member name="M:VideoClubWebApi.Controllers.ClientesController.DeleteCliente(System.Int32)">
+            <summary>
+            Borra un cliente específico
+            </summary>
+            <param name="id">Id del cliente</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

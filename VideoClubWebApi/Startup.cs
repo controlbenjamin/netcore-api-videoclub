@@ -14,6 +14,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using VideoClubWebApi.Models;
 
+using System.Reflection;
+using System.IO;
+
 namespace VideoClubWebApi
 {
     public class Startup
@@ -35,10 +38,34 @@ namespace VideoClubWebApi
             services.AddDbContext<VideoClubDbContext>(options =>
      options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionLocal")));
 
-            //agregar servicio Swagger
+            //agregar servicio Swagger Generation
             services.AddSwaggerGen(config =>
             {
-                config.SwaggerDoc("v1", new OpenApiInfo { Version = "v1", Title = "Mi API Version 1" });
+
+                config.SwaggerDoc("v1", new OpenApiInfo 
+                { 
+                    Version = "v1", Title = "Mi API Version 1", //campos mas usados
+                    Description = "Esta es una descripción del Web API",
+                    TermsOfService = new Uri("https://www.udemy.com/user/felipegaviln/"),
+                    License = new OpenApiLicense()
+                    {
+                        Name = "MIT",
+                        Url = new Uri("http://bfy.tw/4nqh")
+                    },
+                    Contact = new OpenApiContact()
+                    {
+                        Name = "Felipe Gavilán",
+                        Email = "felipe_gavilan887@hotmail.com",
+                        Url = new Uri("https://gavilan.blog/")
+                    }
+                });// fin swagger doc
+
+                //se configura (junto al archivo csproj, propertygroup) para poder escribir 
+                //documentacion en formato xml
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                config.IncludeXmlComments(xmlPath);
+
             });
 
         }

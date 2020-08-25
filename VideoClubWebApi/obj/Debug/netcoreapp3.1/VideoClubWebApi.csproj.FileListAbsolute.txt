@@ -159,3 +159,5 @@ D:\NET.CORE\VideoClubWebApi\VideoClubWebApi\bin\Debug\netcoreapp3.1\Swashbuckle.
 D:\NET.CORE\VideoClubWebApi\VideoClubWebApi\obj\Debug\netcoreapp3.1\VideoClubWebApi.csproj.CoreCompileInputs.cache
 D:\NET.CORE\VideoClubWebApi\VideoClubWebApi\obj\Debug\netcoreapp3.1\VideoClubWebApi.MvcApplicationPartsAssemblyInfo.cs
 D:\NET.CORE\VideoClubWebApi\VideoClubWebApi\obj\Debug\netcoreapp3.1\VideoClubWebApi.MvcApplicationPartsAssemblyInfo.cache
+D:\NET.CORE\VideoClubWebApi\VideoClubWebApi\bin\Debug\netcoreapp3.1\VideoClubWebApi.xml
+D:\NET.CORE\VideoClubWebApi\VideoClubWebApi\obj\Debug\netcoreapp3.1\VideoClubWebApi.xml

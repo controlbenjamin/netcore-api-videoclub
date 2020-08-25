@@ -20,7 +20,7 @@
     "VideoClubWebApi": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "weatherforecast",
+      "launchUrl": "api/clientes",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
