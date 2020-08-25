@@ -19,22 +19,34 @@ namespace VideoClubWebApi.Controllers
 
         private readonly IConfiguration _configuration;
         private readonly ILogger<Cliente> _logger;
+        private readonly VideoClubDbContext _context;
 
-        public TestController(IConfiguration configuration, ILogger<Cliente> logger)
+        public TestController(IConfiguration configuration, ILogger<Cliente> logger, VideoClubDbContext context)
         {
             _configuration = configuration;
             _logger = logger;
+            _context = context;
         }
 
 
         [HttpGet]
-        public string Get()
+        public IEnumerable<Cliente> Get()
         {
 
             _connectionStrings += "\ndbAZURE: => " + _configuration["ConnectionStrings:DefaultConnectionAzure"];
             _connectionStrings += "\ndbLOCAL: => " + _configuration["ConnectionStrings:DefaultConnectionLocal"];
             _connectionStrings += "\nPROVEEDOR: => " + _configuration["ConnectionStrings:ProviderName"];
-            return _connectionStrings;
+
+            /*OUTPUT:
+             
+dbAZURE: => Server=tcp:sql-server-azure-benja.database.windows.net,1433;Initial Catalog=dbVideoClubAzure;Persist Security Info=False;User ID=benjadmin;Password=Benja4026;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
+dbLOCAL: => Server=NOTEBENJA\SQLEXPRESS;Database=dbVideoClubLocal;Trusted_Connection=True;
+PROVEEDOR: => System.Data.SqlClient
+             
+             
+             */
+
+            return _context.Clientes.ToList();
         }
     }
 }
