@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using VideoClubWebApi.Models;
 
-namespace VideoClubWebApi.Controllers
+namespace VideoClubWebApi.Controllers.V1
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class ClientesController : ControllerBase
     {
@@ -90,7 +90,6 @@ namespace VideoClubWebApi.Controllers
         /// </summary>
         /// <param name="id">Id del cliente</param>
         /// <returns></returns>
-
         // DELETE: api/Clientes/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Cliente>> DeleteCliente(int id)

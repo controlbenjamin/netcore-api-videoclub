@@ -16,6 +16,7 @@ using VideoClubWebApi.Models;
 
 using System.Reflection;
 using System.IO;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
 //hace respetar la convencion en la que cada request tiene sus status code respectivo
 [assembly: ApiConventionType(typeof(DefaultApiConventions))]
@@ -41,13 +42,21 @@ namespace VideoClubWebApi
             services.AddDbContext<VideoClubDbContext>(options =>
      options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionLocal")));
 
+
+            //aplicar la convencion
+            services.AddMvc(config =>
+            {
+                config.Conventions.Add(new ApiExplorerGroupPerVersionConvention());
+            });
+
             //agregar servicio Swagger Generation
             services.AddSwaggerGen(config =>
             {
 
-                config.SwaggerDoc("v1", new OpenApiInfo 
-                { 
-                    Version = "v1", Title = "Mi API Version 1", //campos mas usados
+                config.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "Mi API Version 1",
                     Description = "Esta es una descripción del Web API",
                     TermsOfService = new Uri("https://www.udemy.com/user/felipegaviln/"),
                     License = new OpenApiLicense()
@@ -62,6 +71,16 @@ namespace VideoClubWebApi
                         Url = new Uri("https://gavilan.blog/")
                     }
                 });// fin swagger doc
+
+
+
+                //configurar version 2 del api
+                config.SwaggerDoc("v2", new OpenApiInfo
+                {
+                    Version = "v2",
+                    Title = "Mi API Version 2",
+                });
+
 
                 //se configura (junto al archivo csproj, propertygroup) para poder escribir 
                 //documentacion en formato xml
@@ -78,9 +97,10 @@ namespace VideoClubWebApi
         {
             //configurar Swagger
             app.UseSwagger();
-            app.UseSwaggerUI(config=>
+            app.UseSwaggerUI(config =>
             {
                 config.SwaggerEndpoint("/swagger/v1/swagger.json", "Mi API Version 1");
+                config.SwaggerEndpoint("/swagger/v2/swagger.json", "Mi API Version 2");
             });
 
 
@@ -102,4 +122,20 @@ namespace VideoClubWebApi
             });
         }
     }
+
+    //clase en la cual aplica la convencion, para identificar cuales endpoints corresponden a tal version
+    public class ApiExplorerGroupPerVersionConvention : IControllerModelConvention
+    {
+        public void Apply(ControllerModel controller)
+        {
+            // Ejemplo: "Controllers.V1"
+            var controllerNamespace = controller.ControllerType.Namespace;
+            var apiVersion = controllerNamespace.Split('.').Last().ToLower();
+            controller.ApiExplorer.GroupName = apiVersion;
+        }
+    }
+
+
+
+
 }

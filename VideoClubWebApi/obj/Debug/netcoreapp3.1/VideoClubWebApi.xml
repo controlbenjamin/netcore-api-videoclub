@@ -4,7 +4,7 @@
         <name>VideoClubWebApi</name>
     </assembly>
     <members>
-        <member name="M:VideoClubWebApi.Controllers.ClientesController.DeleteCliente(System.Int32)">
+        <member name="M:VideoClubWebApi.Controllers.V1.ClientesController.DeleteCliente(System.Int32)">
             <summary>
             Borra un cliente específico
             </summary>

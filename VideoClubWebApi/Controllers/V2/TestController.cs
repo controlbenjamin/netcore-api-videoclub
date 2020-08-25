@@ -8,13 +8,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using VideoClubWebApi.Models;
 
-namespace VideoClubWebApi.Controllers
+namespace VideoClubWebApi.Controllers.V2
 {
-    [Route("api/[controller]")]
+    [Route("api/v2/[controller]")]
     [ApiController]
     public class TestController : ControllerBase
     {
-
         private string _connectionStrings = string.Empty;
 
         private readonly IConfiguration _configuration;
