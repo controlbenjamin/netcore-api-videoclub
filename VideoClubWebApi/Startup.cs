@@ -32,7 +32,7 @@ namespace VideoClubWebApi
           
             //configurar el dbcontext con la base de datos, esta en secrets.json
             services.AddDbContext<VideoClubDbContext>(options =>
-     options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionAzure")));
+     options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionLocal")));
 
 
         }
