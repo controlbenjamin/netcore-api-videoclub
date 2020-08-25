@@ -17,6 +17,9 @@ using VideoClubWebApi.Models;
 using System.Reflection;
 using System.IO;
 
+//hace respetar la convencion en la que cada request tiene sus status code respectivo
+[assembly: ApiConventionType(typeof(DefaultApiConventions))]
+
 namespace VideoClubWebApi
 {
     public class Startup
