@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using VideoClubWebApi.Models;
 
 namespace VideoClubWebApi
@@ -27,19 +28,33 @@ namespace VideoClubWebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-           
+
             services.AddControllers();
-          
+
             //configurar el dbcontext con la base de datos, esta en secrets.json
             services.AddDbContext<VideoClubDbContext>(options =>
      options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionLocal")));
 
+            //agregar servicio Swagger
+            services.AddSwaggerGen(config =>
+            {
+                config.SwaggerDoc("v1", new OpenApiInfo { Version = "v1", Title = "Mi API Version 1" });
+            });
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            //configurar Swagger
+            app.UseSwagger();
+            app.UseSwaggerUI(config=>
+            {
+                config.SwaggerEndpoint("/swagger/v1/swagger.json", "Mi API Version 1");
+            });
+
+
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
